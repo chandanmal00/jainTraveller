@@ -1,0 +1,50 @@
+{ "value" : "Alabama", "stateShort" : "AL" }
+{ "value" : "Alaska", "stateShort" : "AK" }
+{ "value" : "Arizona", "stateShort" : "AZ" }
+{ "value" : "Arkansas", "stateShort" : "AR" }
+{ "value" : "California", "stateShort" : "CA" }
+{ "value" : "Colorado", "stateShort" : "CO" }
+{ "value" : "Connecticut", "stateShort" : "CT" }
+{ "value" : "Delaware", "stateShort" : "DE" }
+{ "value" : "Florida", "stateShort" : "FL" }
+{ "value" : "Georgia", "stateShort" : "GA" }
+{ "value" : "Hawaii", "stateShort" : "HI" }
+{ "value" : "Idaho", "stateShort" : "ID" }
+{ "value" : "Illinois", "stateShort" : "IL" }
+{ "value" : "Indiana", "stateShort" : "IN" }
+{ "value" : "Iowa", "stateShort" : "IA" }
+{ "value" : "Kansas", "stateShort" : "KS" }
+{ "value" : "Kentucky", "stateShort" : "KY" }
+{ "value" : "Louisiana", "stateShort" : "LA" }
+{ "value" : "Maine", "stateShort" : "ME" }
+{ "value" : "Maryland", "stateShort" : "MD" }
+{ "value" : "Massachusetts", "stateShort" : "MA" }
+{ "value" : "Michigan", "stateShort" : "MI" }
+{ "value" : "Minnesota", "stateShort" : "MN" }
+{ "value" : "Mississippi", "stateShort" : "MS" }
+{ "value" : "Missouri", "stateShort" : "MO" }
+{ "value" : "Montana", "stateShort" : "MT" }
+{ "value" : "Nebraska", "stateShort" : "NE" }
+{ "value" : "Nevada", "stateShort" : "NV" }
+{ "value" : "New Hampshire", "stateShort" : "NH" }
+{ "value" : "New Jersey", "stateShort" : "NJ" }
+{ "value" : "New Mexico", "stateShort" : "NM" }
+{ "value" : "New York", "stateShort" : "NY" }
+{ "value" : "North Carolina", "stateShort" : "NC" }
+{ "value" : "North Dakota", "stateShort" : "ND" }
+{ "value" : "Ohio", "stateShort" : "OH" }
+{ "value" : "Oklahoma", "stateShort" : "OK" }
+{ "value" : "Oregon", "stateShort" : "OR" }
+{ "value" : "Pennsylvania", "stateShort" : "PA" }
+{ "value" : "Rhode Island", "stateShort" : "RI" }
+{ "value" : "South Carolina", "stateShort" : "SC" }
+{ "value" : "South Dakota", "stateShort" : "SD" }
+{ "value" : "Tennessee", "stateShort" : "TN" }
+{ "value" : "Texas", "stateShort" : "TX" }
+{ "value" : "Utah", "stateShort" : "UT" }
+{ "value" : "Vermont", "stateShort" : "VT" }
+{ "value" : "Virginia", "stateShort" : "VA" }
+{ "value" : "Washington", "stateShort" : "WA" }
+{ "value" : "West Virginia", "stateShort" : "WV" }
+{ "value" : "Wisconsin", "stateShort" : "WI" }
+{ "value" : "Wyoming", "stateShort" : "WY" }

@@ -1,0 +1,38 @@
+ <ul>
+                <#list post?keys as key>
+                    <#if post[key]?is_sequence>
+                        <#-- seq can be a list inside with another set of hash -->
+                        <li>${key} :
+                            <#list post[key] as element>
+
+                                <#if element?is_collection>
+                                    <#list element as inKey>
+                                      ${inKey}
+                                    </#list>
+                                <#elseif element?is_hash>
+                                    <#list element?keys as inKey>
+                                        <#if inkey??>
+                                            ${inKey} : ${element[inKey]},
+                                        <#else>
+                                            some key is null
+                                        </#if>
+                                    </#list>
+                                <#else>
+                                    ${element},
+                                </#if>
+                            </#list>
+                        </li>
+                    <#elseif post[key]?is_hash>
+                        <li>${key} : hash
+                        </li>
+                    <#elseif post[key]?is_hash_ex>
+                        <li>${key} : hashe
+                        </li>
+                    <#elseif post[key]?is_collection>
+                        <li>${key} : Collection
+                        </li>
+                    <#else>
+                        <li>${key} : ${post[key]}</li>
+                    </#if>
+                </#list>
+                </ul>

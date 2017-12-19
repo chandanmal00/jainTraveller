@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login Page for Jain Restaurents</title>
+    <meta name="description" content="Find Jain local restaurants, verified and visited by a Jain">
+    <meta charset="utf-8">
+    <meta name="keywords" content="jain food, no onion, no garlic, vegeterian, vegan,
+    restaurants, palo alto, menlo park, mountain view, los angeles, santa monica">
+
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="/bootstrap/3.3.5/js/bootstrap.min.js"/></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+       $('#sign-up-info-form').bootstrapValidator()
+       $('#login-form').bootstrapValidator()
+    });
+</script>
+    <style type="text/css">
+    .info-card-padding {
+    padding: 15px;
+    }
+    .info-card {
+    background-color: #fff;
+    border: 10px solid #d8d8d8;
+    box-sizing: border-box;
+    }
+    .roundify {
+    border-radius: 5px;
+    overflow: hidden;
+    }
+
+        nav .jainFoodie-logo {
+        line-height: 25px;
+        margin-bottom: 7px;
+        margin-top: 24px;
+        }
+
+
+        .jainFoodie-logo {
+        background-position: 0 center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        height: 18px;
+        margin: 0;
+        width: 174px;
+        }
+        h1, h2, h3 {
+        color: #2a2a2a;
+        font-weight: normal;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container" style="margin-top:150px;">
+
+
+    <nav class="navbar navbar-default navbar-fixed-top"
+         role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <h1 class="jainFoodie-logo">
+                    <a href="/">jainFoodie</a>
+                </h1>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-right">
+                <ul class="nav navbar-nav">
+
+                    <li><a href="/consumer/login">Login</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="content">
+
+        <div class="content-section content-section-dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div id="login-section">
+
+                            <div class="login info-card info-card-padding roundify">
+                                <div class="content-section-headings">
+                                    <h3 class="content-section-header">Returning User</h3>
+                                    <h5 class="content-section-subheader">Great to see you again!</h5>
+                                </div>
+
+                                <form id="login-form"
+                                      action="/accounts/login_action/"
+                                      class="form-horizontal"
+                                      method="post"
+                                      data-bv-message="This value is not valid"
+                                      data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                      data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                      data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
+                                        >
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="CqHU9KjciZJpLgX5hFtVhGq0ohyMif9C" />
+                                    <input type="hidden" name="next" value="/restaurant/">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-4" for="email">Email</label>
+                                        <div class="col-xs-7">
+                                            <input type="email" class="form-control"
+                                                   name="email" placeholder="Email" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-4" for="password">Password</label>
+                                        <div class="col-xs-7">
+                                            <input type="password" class="form-control"
+                                                   name="password" placeholder="Password" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-offset-4 col-xs-7">
+                                            <button type="submit" class="btn btn-primary">Sign in</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+                                <center>
+                                    Forgot password? <a href="/accounts/password/reset/">Click here to reset</a>
+                                </center>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-xs-6">
+                        <div id="signup-section">
+                            <div id="sign-up-info" class="info-card info-card-padding roundify">
+                                <div class="content-section-headings">
+                                    <h3 class="content-section-header">Create Account</h3>
+                                    <h5 class="content-section-subheader">Sign up takes less than 10 seconds</h5>
+                                </div>
+
+                                <form id="sign-up-info-form" class="form-horizontal"
+                                      data-bv-message="This value is not valid"
+                                      data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                      data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                      data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-4" for="first_name">First Name</label>
+                                        <div class="col-xs-7">
+                                            <input type="text" class="form-control" id="first_name"
+                                                   name="first_name" placeholder="First Name" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-4" for="last_name">Last Name</label>
+                                        <div class="col-xs-7">
+                                            <input type="text" class="form-control" name="last_name"
+                                                   id="last_name" placeholder="Last Name" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-4" for="email">Email Address</label>
+                                        <div class="col-xs-7">
+                                            <input type="email" class="form-control" id="email"
+                                                   name="email" placeholder="Email address" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-4" for="phone_number">Phone Number</label>
+                                        <div class="col-xs-7">
+                                            <input type="text" class="form-control" id="phone_number"
+                                                   name="phone_number" placeholder="Phone number"
+                                                   data-bv-phone="true"
+                                                   data-bv-phone-country="US" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-4" for="password">Password</label>
+                                        <div class="col-xs-7">
+                                            <input type="password" class="form-control" id="password"
+                                                   name="password" placeholder="Password"
+                                                   data-bv-stringlength="true"
+                                                   data-bv-stringlength-min="8" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-4" for="password_confirm">Password (confirm)</label>
+                                        <div class="col-xs-7">
+                                            <input type="password" class="form-control" id="password_confirm"
+                                                   name="password_confirm" placeholder="Password"
+                                                   data-bv-identical="true"
+                                                   data-bv-identical-field="password" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-offset-4 col-xs-7">
+                                            <button type="submit" class="btn btn-primary">Sign Up!</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

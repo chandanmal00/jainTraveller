@@ -1,0 +1,635 @@
+--Loading Data--
+1]Start mongod
+1.1] ../bin/mongoimport -c listings -d jains < ~/Projects/Current/DevProject/final_cleaned.json 
+./bin/mongoimport -c listings -d askforhelp < ~/Projects/Current/DevProject/final_cleaned.json
+
+2] start elastic searcn
+2.1]Setup Elastic SearchIndexs
+
+PUT : http://localhost:9200/listings/
+
+{
+  "settings":{
+    "analysis":{
+      "analyzer":{
+        "autocomplete":{
+          "type":"custom",
+          "tokenizer":"standard",
+          "filter":[ "standard", "lowercase", "stop", "kstem", "ngram" ] 
+        }
+      },
+      "filter":{
+        "ngram":{
+          "type":"ngram",
+          "min_gram":2,
+          "max_gram":15
+        }
+      }
+    }
+  }
+}
+
+PUT http://localhost:9200/listings/newdata/_mapping
+{"newdata" : {
+        "properties" : {
+"name":{ "type" : "string" },
+"city":{ "type" : "string" },
+"address":{ "type" : "string" },
+"country":{ "type" : "string" },
+"state":{ "type" : "string" },
+"type":{ "type" : "string" },
+"permalink":{ "type" : "string" },
+"suggest" : { "type" : "completion",
+                          "index_analyzer" : "simple",
+                          "search_analyzer" : "simple",
+                          "payloads" : true
+            }
+        }
+    }
+}
+
+3] Run NoFilterUploadV2.java with the final_cleaned.json to insert into Elastic Search
+
+4] 
+cd /cygdrive/c/Program\ Files/MongoDB/Server/3.0/bin/
+ /cygdrive/c/Program Files/MongoDB/Server/3.0/bin/mongod
+
+ ./mongod.exe --dbpath D:\\data -storageEngine wiredTiger
+
+
+Elastic Search:
+D:\elasticsearch-1.7.1\bin
+
+Run the bat file
+—Elastic Search—
+list indices:
+http://localhost:9200/_cat/indices
+
+Search:
+http://localhost:9200/listings/_search?q=jain
+—Auto Complete Search
+https://www.elastic.co/guide/en/elasticsearch/reference/1.7/search-suggesters-completion.html
+
+##Get suggestions:
+http://localhost:8082/get_suggestions/A
+
+
+java hOme: /cygdrive/c/Program Files/Java/jdk1.8.0_60/bin
+
+
+--SSH Keysoe setup
+$ ./keytool.exe -keystore D:\\keys\askforhelpKeystore -genkey -alias sparkjava
+Enter keystore password:  badman
+Re-enter new password: badman
+What is your first and last name?
+  [Unknown]:  test test
+What is the name of your organizational unit?
+  [Unknown]:  test
+What is the name of your organization?
+  [Unknown]:  test
+What is the name of your City or Locality?
+  [Unknown]:  sunnyvale
+What is the name of your State or Province?
+  [Unknown]:  CA
+What is the two-letter country code for this unit?
+  [Unknown]:  US
+Is CN=test test, OU=test, O=test, L=sunnyvale, ST=CA, C=US correct?
+  [no]:  yes
+
+Enter key password for <sparkjava>
+        (RETURN if same as keystore password):
+
+http://docs.oracle.com/cd/E19509-01/820-3503/ggfgo/index.html
+http://pubs.vmware.com/continuent/continuent-tungsten-2.0/deployment-ssl-stores.html
+
+chandan@chandan-PC /cygdrive/c/Program Files/Java/jdk1.8.0_60/bin
+$ ./keytool.exe -keystore D:\\keys\\askforhelpKeystore\\keystore.jks -genkey -alias spark -keyalg RSA
+
+ keytool -genkey -alias replserver -keyalg RSA -keystore keystore.jks
+
+Enter keystore password:  badman
+Re-enter new password: badman
+What is your first and last name?
+  [Unknown]:  test test
+What is the name of your organizational unit?
+  [Unknown]:  test
+What is the name of your organization?
+  [Unknown]:  test
+What is the name of your City or Locality?
+  [Unknown]:  sunnyvale
+What is the name of your State or Province?
+  [Unknown]:  CA
+What is the two-letter country code for this unit?
+  [Unknown]:  US
+Is CN=test test, OU=test, O=test, L=sunnyvale, ST=CA, C=US correct?
+  [no]:  yes
+
+Enter key password for <spark>
+        (RETURN if same as keystore password):
+
+
+--Certificate:
+$ ./keytool.exe -export -alias spark -file D:\\keys\\certificate.cer -keystore D:\\keys\\askforhelpKeystore\\keystore.jks  Enter keystore password:  badman
+Certificate stored in file <D:\keys\certificate.cer>
+
+--Truststore
+./keytool.exe -import -v -trustcacerts -alias spark -file D:\\keys\\certificate.cer -keystore  D:\\keys\\truststore.ts -keypass badman123 -storepass badman123
+
+eytool -import -v -trustcacerts -alias clientkey -file ../client/client.cer -keystore cacerts.jks -keypass p@ssw0rd -storepass p@ssw0rd
+
+
+//Setting up HTTPS, Using RSA is the key
+--Final:
+$ ./keytool.exe -keystore D:\\keys\\askforhelpKeystore\\keystore.jks -genkey -alias spark -keyalg RSA
+Enter keystore password:  badman
+Re-enter new password: badman
+What is your first and last name?
+  [Unknown]:  test test
+What is the name of your organizational unit?
+  [Unknown]:  test
+What is the name of your organization?
+  [Unknown]:  test
+What is the name of your City or Locality?
+  [Unknown]:  sunnyvale
+What is the name of your State or Province?
+  [Unknown]:  CA
+What is the two-letter country code for this unit?
+  [Unknown]:  US
+Is CN=test test, OU=test, O=test, L=sunnyvale, ST=CA, C=US correct?
+  [no]:  yes
+
+Enter key password for <spark>
+        (RETURN if same as keystore password):  badman
+Re-enter new password: badman
+	
+--Cert
+keytool -export -alias replserver -file client.cer -keystore keystore.jks
+./keytool.exe -export -alias spark -file D:\\keys\\certificate.cer -keystore D:\\keys\\askforhelpKeystore\\keystore.jks
+
+--TrustStore
+ keytool -import -v -trustcacerts -alias replserver -file client.cer -keystore truststore.ts 
+./keytool.exe -import -v -trustcacerts -alias spark -file D:\\keys\\certificate.cer -keystore  D:\\keys\\truststore.ts
+
+I want to know doctors for my child
+
+ Doctor XYZ upvotes(InNetwork) upvotes(Total), Reviews, Location
+ 
+ Doctor: Name, Address, SkillSet, Contact
+
+
+
+
+//javaScript for Yelp
+
+var elements = document.getElementsByTagName("li");
+var a = null;
+console.log(a);
+
+n = elements.length;
+   for (var i = 0; i < n; i++) {
+     var e = elements[i];
+     var t = e.getElementsByClassName("h-link");
+     if(t!=null && t.length==1) {
+       console.log(t[0].innerHTML);
+     }
+   }
+
+
+var elements = document.getElementsByTagName("li");
+n = elements.length;
+   for (var i = 0; i < n; i++) {
+     var e = elements[i];
+     var t = e.getElementsByClassName("h-link");
+     if(t!=null && t.length==1) {
+       console.log(t[0].innerHTML);
+     }
+
+     var t1 = e.getElementsByTagName("address");
+     if(t1!=null && t1.length==1) {
+       console.log(t[0].innerHTML);
+     }
+
+   }
+
+//Final JS
+
+var elements = document.getElementsByTagName("li");
+n = elements.length;
+   for (var i = 0; i < n; i++) {
+     var e = elements[i];
+     var t = e.getElementsByClassName("h-link");
+     if(t!=null && t.length==1) {
+       console.log(t[0].innerHTML);
+            var t1 = e.getElementsByTagName("address");
+          if(t1!=null && t1.length==1) {
+          console.log(t1[0].innerHTML);
+         }
+     }
+
+
+
+   }
+
+//Better with Obejcts:
+
+var docs = [];
+
+var elements = document.getElementsByTagName("li");
+
+n = elements.length;
+index = 0;
+   for (var i = 0; i < n; i++) {
+     var e = elements[i];
+     var t = e.getElementsByClassName("h-link");
+     
+     if(t!=null && t.length==1) {
+       var doc = new Object;
+       doc.name = t[0].innerHTML;
+       //console.log(t[0].innerHTML);
+            var t1 = e.getElementsByTagName("address");
+          if(t1!=null && t1.length==1) {
+         // console.log(t1[0].innerHTML);
+            doc.address = t1[0].innerHTML
+         }
+       docs[index] = doc;
+       index++;
+     }
+
+
+
+   }
+
+console.log(docs);
+
+javascript: 
+
+ var docs = [];  var elements = document.getElementsByTagName("li");  n = elements.length; index = 0;    for (var i = 0; i < n; i++) {      var e = elements[i];      var t = e.getElementsByClassName("h-link");            if(t!=null && t.length==1) {        var doc = new Object;        doc.name = t[0].innerHTML;        //console.log(t[0].innerHTML);        var t1 = e.getElementsByTagName("address");        if(t1!=null && t1.length==1) {          // console.log(t1[0].innerHTML);             doc.address = t1[0].innerHTML;        }        docs[index] = doc;        index++;      }       }  for( i=0; i<index;i++) { console.log(docs[i]); }
+
+
+javascript:  var docs = [];  var elements = document.getElementsByTagName("li");  n = elements.length; index = 0;    for (var i = 0; i < n; i++) {      var e = elements[i];      var t = e.getElementsByClassName("h-link");            if(t!=null && t.length==1) {        var doc = new Object;        doc.name = t[0].innerHTML.replace(/\n/g,'').replace(/  /g,'').trim();        //console.log(t[0].innerHTML);        var t1 = e.getElementsByTagName("address");        if(t1!=null && t1.length==1) {          // console.log(t1[0].innerHTML);             doc.address = t1[0].innerHTML.replace(/  /g,'').replace(/\n/g,'');        }                docs[index] = doc;        index++;      }       }  for( i=0; i<index;i++) { console.log(JSON.stringify(docs[i])); }
+
+
+//
+javascript:  var docs = [];  var elements = document.getElementsByTagName("li");  n = elements.length; index = 0;    for (var i = 0; i < n; i++) {      var e = elements[i];      var t = e.getElementsByClassName("h-link");            if(t!=null && t.length==1) {        var doc = new Object;        doc.url = t[0].href;        doc.name = t[0].innerHTML.replace(/\n/g,'').replace(/  /g,'').trim();        //console.log(t[0].innerHTML);        var t1 = e.getElementsByTagName("address");        if(t1!=null && t1.length==1) {          // console.log(t1[0].innerHTML);             doc.address = t1[0].innerHTML.replace(/  /g,'').replace(/\n/g,'');        }        var t2 = e.getElementsByClassName("category");        if(t2!=null && t2.length==1) {          // console.log(t1[0].innerHTML);             doc.category = t2[0].innerHTML.replace(/  /g,'').replace(/\n/g,'');        }                docs[index] = doc;        index++;      }       }  for( i=0; i<index;i++) { console.log(JSON.stringify(docs[i])); }
+
+//Better JS
+var docs = [];  
+var elements = document.getElementsByTagName("li"); 
+n = elements.length; index = 0;    
+for (var i = 0; i < n; i++) {     
+  var e = elements[i];    
+  var t = e.getElementsByClassName("h-link");   
+  if(t!=null && t.length==1) {  
+    var doc = new Object;       
+    doc.url = t[0].href;      
+    doc.name = t[0].innerHTML.replace(/\n/g,'').replace(/  /g,'').trim(); 
+    //console.log(t[0].innerHTML);    
+    var t1 = e.getElementsByTagName("address");  
+    if(t1!=null && t1.length==1) { 
+      // console.log(t1[0].innerHTML);   
+      doc.address = t1[0].innerHTML.replace(/  /g,'').replace(/\n/g,'');
+    }       
+    var t2 = e.getElementsByClassName("category"); 
+    if(t2!=null && t2.length==1) {     
+      // console.log(t1[0].innerHTML);          
+      doc.category = t2[0].innerHTML.replace(/  /g,'').replace(/\n/g,'');  
+    }            
+    docs[index] = doc;  
+    index++;     
+  }     
+}  for( i=0; i<index;i++)
+{ console.log(JSON.stringify(docs[i])); }
+
+//Much better:
+var docs = [];  
+var elements = document.getElementsByTagName("li"); 
+n = elements.length; index = 0;    
+for (var i = 0; i < n; i++) {     
+  var e = elements[i];    
+  var t = e.getElementsByClassName("h-link");   
+  if(t!=null && t.length==1) {  
+    var doc = new Object;       
+    doc.url = t[0].href;      
+    doc.name = t[0].innerHTML.replace(/\n/g,'').replace(/  /g,'').trim(); 
+    //console.log(t[0].innerHTML);    
+    var t1 = e.getElementsByTagName("address");  
+    if(t1!=null && t1.length==1) { 
+      // console.log(t1[0].innerHTML);  
+      address = t1[0].innerHTML.replace(/  /g,'').replace(/\n/g,'');
+      var adr = address.split(',');
+      doc.address = address;
+      doc.city = adr[adr.length-1].trim();
+    }       
+    var t2 = e.getElementsByClassName("category"); 
+    if(t2!=null && t2.length==1) {     
+      // console.log(t1[0].innerHTML);          
+      var category = t2[0].innerHTML.replace(/  /g,'').replace(/\n/g,'');
+      doc.category = category.split(',');
+      for(k=0;k<doc.category.length;k++) {
+         doc.category[k] =  doc.category[k].trim()
+      }
+    }
+    doc.state="CA";
+    doc.country="US";
+    docs[index] = doc;  
+    index++;     
+  }     
+}  for( i=0; i<index;i++)
+{ console.log(JSON.stringify(docs[i])); }
+/html/body/div[1]/div[2]/div[4]/div[2]/ul[2]/li/div[2]/div[2]/address
+Doctor : [list of users], Notes[], Address, [OtherSiteLinks] contributor, dateCreated, dateUpdated, skill
+users friends[users]
+
+Add a Doctor, endorses it,
+--Use case
+for Palo Alto - I want to know Pediatrician
+
+1] 
+  [show me the list]
+  if not satisfied
+  [Do you want to ask your network] - name or anonymous, urgency/quick help/within 7 days/leisure
+  [collect emails/text] from gmail/phone/contacts, message everyone
+  [responses will be anonymous]
+
+
+2] Friends Get a link to Help
+: they choose to add or discard
+
+When they add:
+
+ASk for details 
+
+
+{type:"Doctor", skill: ["Pediatrician"], contributor:"chandan", thumbsup:["chandan"], notes:["Dr. Protter is very calm and listens carefully to you. he is very good with Email communication and My son Aayush enjoys talking to him in everyvisit"], permalink:"Doctor_Paul_Protter", name:"Paul Protter", city:"Sunnyvale", country:"US", state:"CA", zipcode:"94085", dateCreated: { $currentDate:{ $type: "timestamp"}}, dateUpdated: { $currentDate:{ $type: "timestamp"}} }
+
+
+--Mongo Unique Index:
+db.doctors.createIndex( { name: 1,city:1 }, { unique: true } )
+./mongoimport.exe -d blog -c doctors < /cygdrive/d/Doctors/data.txt
+./mongoimport.exe -c listings -d askforhelp < /cygdrive/d/Doctors/data.txt
+
+./mongoimport.exe -c states -d askforhelp < /cygdrive/d/Doctors/States/data.txt
+
+
+
+db.doctors.insert({"url":"file:///adredir?ad_business_id=WA1ziXlqhjsMxflNeGv7IQ&placement=above_search&redirect_url=http%3A%2F%2Fm.yelp.com%2Fbiz%2Fpatrick-f-mcevoy-dds-fagd-mountain-view-3&request_id=83b3122cae7eafcf&signature=dcb698b4b5fe83e15987d2043685456bc6a73671d63a93b3405afc4efeb09f61&slot=0","name":"Patrick F. McEvoy, DDS, FAGD","address":"105 South Dr, Mountain View","city":"Mountain View","state":"CA","country":"US"})
+
+
+http://localhost:9200/listings/
+//AutoComplete
+{
+ "settings":{
+    "analysis":{
+      "analyzer":{
+        "autocomplete":{
+          "type":"custom",
+          "tokenizer":"standard",
+          "filter":[ "standard", "lowercase", "stop", "kstem", "ngram" ] 
+        }
+      },
+      "filter":{
+        "ngram":{
+          "type":"ngram",
+          "min_gram":2,
+          "max_gram":15
+        }
+      }
+    }
+  }
+},
+ "mappings": {
+    "hotel" : {
+      "properties" : {
+        "name" : { "type" : "string" },
+        "city" : { "type" : "string" },
+        "name_suggest" : {
+          "type" :     "completion"
+        }
+      } 
+    }
+  }
+}
+
+
+
+
+{
+ "settings":{
+    "analysis":{
+      "analyzer":{
+        "autocomplete":{
+          "type":"custom",
+          "tokenizer":"standard",
+          "filter":[ "standard", "lowercase", "stop", "kstem", "ngram" ] 
+        }
+      },
+      "filter":{
+        "ngram":{
+          "type":"ngram",
+          "min_gram":2,
+          "max_gram":15
+        }
+      }
+    }
+  }
+},
+
+ "mappings":{
+      "newdata":{
+         "properties":{
+            "name":{
+               "type":"string",
+               "index_analyzer":"autocomplete",
+               "index":"analyzed",
+               "search_analyzer":"standard"
+            }
+         }
+      }
+   }
+}
+
+//
+PUT: 	{
+  "settings":{
+    "analysis":{
+      "analyzer":{
+        "autocomplete":{
+          "type":"custom",
+          "tokenizer":"standard",
+          "filter":[ "standard", "lowercase", "stop", "kstem", "ngram" ] 
+        }
+      },
+      "filter":{
+        "ngram":{
+          "type":"ngram",
+          "min_gram":2,
+          "max_gram":15
+        }
+      }
+    }
+  }
+}
+
+PUT: http://localhost:9200/listings/newdata/_mapping
+{
+"newdata":{
+         "properties":{
+            "name":{
+               "type":"string",
+               "index_analyzer":"autocomplete",
+               "index":"analyzed",
+               "search_analyzer":"standard"
+            }
+         }
+      }
+}
+
+http://jontai.me/blog/2013/02/adding-autocomplete-to-an-elasticsearch-search-application/
+http://elasticsearch-users.115913.n3.nabble.com/Auto-Complete-Elastic-search-td4044288.html
+https://www.elastic.co/blog/you-complete-me
+
+
+---Loading Data back to cluster
+./mongoimport.exe -c listings -d askforhelp < /cygdrive/d/Doctors/data.txt
+
+--Elastic Search through NoFilter.java
+
+
+//Index creation
+
+
+
+music/song/1?refresh
+
+http://localhost:9200/listings/newdata/_mapping
+{"newdata" : {
+        "properties" : {
+"name":{ "type" : "string" },
+"city":{ "type" : "string" },
+"address":{ "type" : "string" },
+"country":{ "type" : "string" },
+"state":{ "type" : "string" },
+"type":{ "type" : "string" },
+"permalink":{ "type" : "string" },
+"suggest" : { "type" : "completion",
+                          "index_analyzer" : "simple",
+                          "search_analyzer" : "simple",
+                          "payloads" : true
+            }
+        }
+    }
+}
+
+
+/Sugest
+http://localhost:9200/listings/_suggest?pretty
+
+{
+"song-suggest" : {
+        "text" : "Dr Kat",
+        "completion" : {
+            "field" : "suggest"
+        }
+    }
+}
+
+
+"suggestapi" : [ {
+    "text" : "Ped",
+    "offset" : 0,
+    "length" : 3,
+    "options" : [ {
+      "text" : "Dr Katharine Padrez",
+      "score" : 10.0
+    }, {
+      "text" : "Dr Suszanne Bernat , MD",
+      "score" : 10.0
+    }, {
+      "text" : "Drucker Robin MD",
+      "score" : 10.0
+    }, {
+      "text" : "Glinder Kellen MD",
+      "score" : 10.0
+    }, {
+      "text" : "Harry Dennis, MD",
+      "score" : 10.0
+    } ]
+
+
+
+//auto complete try:
+PUT http://localhost:9200/music?pretty
+{
+ "settings":{
+    "analysis":{
+      "analyzer":{
+        "autocomplete":{
+          "type":"custom",
+          "tokenizer":"standard",
+          "filter":[ "standard", "lowercase", "stop", "kstem", "ngram" ]
+        }
+      },
+      "filter":{
+        "ngram":{
+          "type":"ngram",
+          "min_gram":2,
+          "max_gram":15
+        }
+      }
+    }
+  }
+},
+ "mappings": {
+        "song" : {
+            "properties" : {
+                "suggest" : {
+                    "type" : "completion"
+                },
+                "title" : {
+                    "type": "keyword"
+                }
+            }
+        }
+    }
+}
+
+
+PUT: http://localhost:9200/music/song/1?refresh
+{
+    "suggest" : {
+        "input": [ "Nevermind", "Nirvana" ],
+        "weight" : 34
+    }
+}
+
+PUT http://localhost:9200/music/song/1?refresh
+{
+    "suggest" : [
+        {
+            "input": "Nevermind",
+            "weight" : 10
+        },
+        {
+            "input": "Nirvana",
+            "weight" : 3
+        }
+    ]
+}
+
+PUT http://localhost:9200/music/song/1?refresh
+{
+  "suggest" : [ "Nevermind", "Nirvana" ]
+}
+
+//Querying
+POST http://localhost:9200/music/_search?pretty
+{
+    "suggest": {
+        "song-suggest" : {
+            "prefix" : "nir",
+            "completion" : {
+                "field" : "suggest"
+            }
+        }
+    }
+}
